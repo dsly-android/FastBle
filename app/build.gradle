@@ -12,10 +12,40 @@ android {
         versionCode rootProject.ext.versionControl.versionCode
         versionName rootProject.ext.versionControl.versonName
     }
+    signingConfigs {
+        system4Arm {
+            keyAlias 'system4Arm'
+            keyPassword '654321'
+            storeFile file('../XinuoSign.jks')
+            storePassword 'xinuo2003'
+        }
+        system4X86 {
+            keyAlias 'system4X86'
+            keyPassword '654321'
+            storeFile file('../XinuoSign.jks')
+            storePassword 'xinuo2003'
+        }
+        xinuoSystem {
+            keyAlias 'xinuoSystem'
+            keyPassword '200104'
+            storeFile file('../XinuoSign.jks')
+            storePassword 'xinuo2003'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.xinuoSystem
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        compat {
+            initWith release
+            signingConfig signingConfigs.system4Arm
+        }
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.system4Arm
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
